@@ -3,9 +3,9 @@
  * {return} the global object
  */
 var primGlobal = function () {	 
-	if (typeof self !== 'undefined') { return self; }
-	if (typeof window !== 'undefined') { return window; }
-	if (typeof global !== 'undefined') { return global; }
+	if (typeof self !== 'undefined') { return self; }      //eslint-disable-line no-undef
+	if (typeof window !== 'undefined') { return window; }  //eslint-disable-line no-undef
+	if (typeof global !== 'undefined') { return global; }  //eslint-disable-line no-undef
 	throw new Error('No global object');
 };
 
@@ -38,8 +38,24 @@ Namespace.create = function(namespace) {
   }, primGlobal());
 }
 
-Namespace.create("js.lang");
+////////////////////////////////////////////
+// OJO
+////////////////////////////////////////////
+var OJO = function() {}
 
-js.lang.Array = Array;
-js.lang.Namespace = Namespace;
+/**
+ * Map the given object to the given workspace
+ */
+OJO.privPrimitiveMap = function(foo, namespaceName) {
+  if (typeof foo !== 'undefined') { 
+      if(typeof namespaceName == 'undefined') { Namespace.create(namespaceName); }
+      namespaceName.foo = foo;
+  }
+  return foo;    
+};
 
+
+////////////////////////////////////////////
+// BOOTSTRAP
+////////////////////////////////////////////
+primGlobal().alert("OJO");
