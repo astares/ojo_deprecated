@@ -46,16 +46,24 @@ var OJO = function() {}
 /**
  * Map the given object to the given workspace
  */
-OJO.privPrimitiveMap = function(foo, namespaceName) {
-  if (typeof foo !== 'undefined') { 
-      if(typeof namespaceName == 'undefined') { Namespace.create(namespaceName); }
-      namespaceName.foo = foo;
+OJO._mapObjectToNamespace = function(foo, namespaceName) {
+  if (typeof foo !== 'undefined') {       
+      (Namespace.create(namespaceName))[foo.name] = foo;
   }
   return foo;    
 };
+
+/**
+ * Bootstrap the system
+ */
+OJO.bootstrap = function() {
+    [Array, Number].forEach(function(element) {    
+        OJO._mapObjectToNamespace(element, "js.lang");
+    })
+}
 
 
 ////////////////////////////////////////////
 // BOOTSTRAP
 ////////////////////////////////////////////
-primGlobal().alert("OJO");
+OJO.bootstrap();
