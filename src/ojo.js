@@ -57,7 +57,7 @@ OJO._mapObjectToNamespace = function(foo, namespaceName) {
  * Bootstrap the system
  */
 OJO.bootstrap = function() {
-    [Array, Number].forEach(function(element) {    
+    [Array, Number, Boolean].forEach(function(element) {    
         OJO._mapObjectToNamespace(element, "js.lang");
     })
 }
